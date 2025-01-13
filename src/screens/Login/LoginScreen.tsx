@@ -31,15 +31,13 @@ const LoginScreen = ({ navigation }: ScreenProps) => {
     },
   });
 
-  const { login, updateToken, setUserId } = useAuthStore();
+  const { updateToken, setUserId } = useAuthStore();
 
   const { mutate, isPending } = useMutation({
     mutationFn: loginUser,
     onSuccess: (data) => {
-      console.log(data, 'show data');
       updateToken(data?.token);
       setUserId(data?.user?._id);
-      login();
     },
     onError: (error) => {
       const axiosError = error as AxiosError;
@@ -73,6 +71,7 @@ const LoginScreen = ({ navigation }: ScreenProps) => {
               placeholder="Enter Email"
               onChangeText={(value) => onChange(value)}
               value={value}
+              testID="email"
             />
           )}
           name="email"
@@ -94,6 +93,7 @@ const LoginScreen = ({ navigation }: ScreenProps) => {
               value={value}
               secureTextEntry={true}
               autoCapitalize="none"
+              testID="password"
             />
           )}
           name="password"
@@ -104,6 +104,7 @@ const LoginScreen = ({ navigation }: ScreenProps) => {
           onPress={handleSubmit(onSubmit)}
           style={styles.button}
           loading={isPending}
+          testID="login"
         >
           Login
         </Button>

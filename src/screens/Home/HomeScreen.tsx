@@ -41,11 +41,11 @@ const HomeScreen = ({ navigation }: ScreenProps) => {
   });
 
   useEffect(() => {
-    if (data?.message === 'Invalid or missing token') {
+    if (data && data.message === 'Invalid or missing token') { 
       logout();
+    } else if (data && data.token) {
+      useAuthStore.setState({ token: data.token });
     }
-
-    useAuthStore.setState({ token: data?.token });
   }, [data]);
 
   useEffect(() => {
